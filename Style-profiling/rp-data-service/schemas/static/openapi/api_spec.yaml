@@ -1,0 +1,986 @@
+openapi: 3.0.1
+
+info:
+  title: RP Data Service
+  description: Recommendation Platform Data Management Service Backend
+  version: 0.8
+
+servers:
+  - url: http://localhost:9850
+
+tags:
+  - name: Dataset
+    description: ''
+  - name: Infer
+    description: ''
+  - name: Experiment
+    description: ''
+  - name: Model
+    description: ''
+  - name: Schedule
+    description: ''
+
+paths:
+  /api/v1/datasets/status:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/End'
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/datasets/customers:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: identifier
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: gender
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+            enum: ['남성', '여성']
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+  /api/v1/datasets/products:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: identifier
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: label
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: gender
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+            enum: ['남성', '여성', '혼성']
+        - name: name
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+  /api/v1/datasets/products/autocomplete:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - name: q
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: 'list of products names start with q'
+  /api/v1/datasets/products/{id}:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/datasets/historys:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: customer
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: product
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/End'
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/History'
+  /api/v1/infer/text:
+    post:
+      tags:
+        - Infer
+      description: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, description, ]
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attributes'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/infer/image:
+    post:
+      tags:
+        - Infer
+      description: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [image, ]
+              properties:
+                image:
+                  type: string
+                  description: 'image url'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attributes'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/experiments:
+    post:
+      summary: ''
+      tags:
+        - Experiment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: seq_num_major
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: seq_num_minor
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: |
+            - 0: queued
+            - 1: training
+            - 2: done
+            - 3: failed
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3]
+        - name: model_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/End'
+        - name: serving
+          in: query
+          description: |
+            - 0: none
+            - 1: staging
+            - 2: prod
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Experiment'
+  /api/v1/experiments/{id}:
+    get:
+      summary: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/schedules:
+    post:
+      summary: 'Training now'
+      tags:
+        - Schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: 'Get next training time'
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: 'Change Schedule'
+      tags:
+        - Schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/models:
+    get:
+      summary: ''
+      tags:
+        - Model
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Model'
+
+components:
+  schemas:
+    Attributes:
+      type: array
+      items:
+        type: object
+        required: [key, values, ]
+        properties:
+          key:
+            type: string
+          values:
+            type: array
+            items:
+              type: string
+    Status:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        customer:
+          type: object
+          properties:
+            total:
+              type: integer
+              minimum: 0
+            in:
+              type: integer
+              minimum: 0
+            out:
+              type: integer
+              minimum: 0
+        product:
+          type: object
+          properties:
+            total:
+              type: integer
+              minimum: 0
+            in:
+              type: integer
+              minimum: 0
+            out:
+              type: integer
+              minimum: 0
+        history:
+          type: object
+          properties:
+            total:
+              type: integer
+              minimum: 0
+            in:
+              type: integer
+              minimum: 0
+            out:
+              type: integer
+              minimum: 0
+        date:
+          type: string
+          format: date
+    Customer:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        identifier:
+          type: integer
+          minimum: 1
+        gender:
+          type: string
+          enum: ['남성', '여성']
+        zip_code:
+          type: integer
+          minimum: 10000
+          maximum: 99999
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Product:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        identifier:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        label:
+          type: string
+        gender:
+          type: string
+          enum: ['남성', '여성', '혼성']
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    History:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        customer:
+          type: integer
+        product:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Experiment:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        model_id:
+          type: string
+        seq_num_major:
+          type: integer
+          minimum: 1
+        seq_num_minor:
+          type: integer
+          minimum: 1
+        status:
+          type: integer
+          description: |
+            status
+            - 0: created
+            - 1: queued
+            - 2: training
+            - 3: done
+            - 4: failed
+          enum: [0, 1, 2, 3, 4]
+        serving:
+          type: integer
+          description: |
+            serving
+            - 0: none
+            - 1: staging
+            - 2: prod
+          enum: [0, 1, 2]
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: number
+                minimum: 0
+        rmse:
+          type: number
+          description: 'RMSE'
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Schedule:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        cron: 
+          type: string
+          example: '*/5 * * * *'
+        priority:
+          type: integer
+          description: '1 - normal, 0 - immediately invoked'
+          enum: [0, 1]
+        sequence:
+          type: integer
+          minimum: 1
+    Model:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description:
+          type: string
+        image_name:
+          type: string
+          description: 'docker image name'
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              default:
+                type: number
+                minimum: 0
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    ObjectId:
+      type: string
+      description: id 
+    ResponseErrorDto:
+      type: object
+      required: [error_code, error_message]
+      properties:
+        error_code:
+          type: integer
+          description: ''
+        error_message:
+          type: string
+          description: ''
+    ExperimentCreateDto:
+      type: object
+      required: [model_id, parameters, ]
+      properties:
+        model_id:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: number
+                minimum: 0
+    ExperimentUpdateDto:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: number
+                minimum: 0
+        serving:
+          type: integer
+          enum: [0, 1, 2]
+          example: 2
+    ScheduleCreateDto:
+      type: object
+      properties:
+        cron:
+          type: string
+          example: '0 11 * * MON-FRI'
+        priority:
+          type: integer
+          description: '1 - normal, 0 - immediately invoked'
+          enum: [0, 1]
+    ScheduleUpdateDto:
+      type: object
+      properties:
+        cron:
+          type: string
+          example: '0 11 * * MON-FRI'
+            
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 500
+        default: 20
+    SortBy:
+      name: sort_by
+      in: query
+      description: |
+        sorting<br>
+        - syntax: `{+|-}{filedname}` (e.g., +name)
+          - (`+`): ascending order
+          - (`-`): descending order
+        - for multi-column sorting, comma seperate. (e.g., sort_by=+name,-desc)
+      required: false
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        $ref: '#/components/schemas/ObjectId'
+    Start:
+      name: start
+      in: query
+      description: start date
+      required: false
+      schema:
+        type: string
+        format: date
+    End:
+      name: end
+      in: query
+      description: end date
+      required: false
+      schema:
+        type: string
+        format: date
+
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    204NoContent:
+      description: No Content
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    404NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    500InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+
+  headers:
+    Location:
+      description: URI of the new resource
+      schema:
+        type: string
+        format: uri

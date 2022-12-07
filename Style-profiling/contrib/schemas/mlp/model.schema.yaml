@@ -1,0 +1,45 @@
+$id: http://ai-dev.diquest.com/model.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: model schema
+type: object
+properties:
+  name:
+    type: string
+  description: 
+    type: string
+  ml_task:
+    type: integer
+    description: |
+      - 0: text deep tagging
+      - 1: image deep tagging
+      - 2: virtual try-on
+    enum: [0, 1, 2]
+  algorithms:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        image_name:
+          type: string
+        training_params:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              default:
+                type: string
+        performance_metrics:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string

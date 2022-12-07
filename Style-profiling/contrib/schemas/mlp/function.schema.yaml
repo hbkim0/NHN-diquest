@@ -1,0 +1,26 @@
+$id: http://ai-dev.diquest.com/function.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: function schema
+type: object
+properties:
+  ml_task:
+    type: integer
+    description: |
+      - 0: text deep tagging
+      - 1: image deep tagging
+      - 2: virtual try-on
+    enum: [0, 1, 2]
+  type:
+    type: integer
+    description: |
+      - 0: preprocessing
+      - 1: augmentation
+    enum: [0, 1]
+  name:
+    type: string
+  params:
+    type: array
+    items:
+      type: object
+  function_name:
+    type: string

@@ -1,0 +1,24 @@
+$id: http://ai-dev.diquest.com/dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: model schema
+type: object
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  image_name:
+    type: string
+    description: 'docker image name'
+  parameters:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        default:
+          type: number
+          minimum: 0

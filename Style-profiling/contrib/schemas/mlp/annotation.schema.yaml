@@ -1,0 +1,68 @@
+$id: http://ai-dev.diquest.com/annotation.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: annotation schema
+type: object
+oneOf:
+  - required: [dataset_id, bundle_id, file_id, done, labels]
+  - required: [file_id, versioned_dataset_id, done, split, labels]
+properties:
+  dataset_id:
+    type: string
+  bundle_id:
+    type: string
+  file_id:
+    type: string
+  versioned_dataset_id:
+    type: string
+  description: 
+    type: string
+  done:
+    type: integer
+    enum: [0, 1]
+  split:
+    type: integer
+    description: |
+      - 0: training
+      - 1: validation
+      - 2: testing
+    enum: [0, 1, 2]
+  labels:
+    oneOf:
+      - type: array
+        items:
+          type: object
+          required: [bbox, label, attributes]
+          properties:
+            bbox:
+              type: array
+              description: '[left, top, right, bottom]'
+              items:
+                type: number
+              minItems: 4
+              maxItems: 4
+            label:
+              type: string
+            attributes:
+              type: array
+              items:
+                type: object
+                requires: [key, values, ]
+                properties:
+                  key:
+                    type: string
+                  values:
+                    type: array
+                    items:
+                      type: string
+      - type: array
+        items:
+          type: object
+          required: [type, text, ]
+          properties:
+            type:
+              type: string
+              enum: ['text', 'label']
+            text:
+              type: string
+            label_id:
+              type: string

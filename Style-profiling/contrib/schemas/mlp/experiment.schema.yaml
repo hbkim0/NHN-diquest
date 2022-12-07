@@ -1,0 +1,60 @@
+$id: http://ai-dev.diquest.com/experiment.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: experiment schema
+type: object
+properties:
+  dataset_id:
+    type: string
+  versioned_dataset_id:
+    type: string
+  model_id:
+    type: string
+  name:
+    type: string
+  description: 
+    type: string
+  algorithms:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        training_params:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              default:
+                type: string
+              argument:
+                type: string
+        performance_metrics:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              value:
+                type: string
+  artifacts:
+    type: array
+    items:
+      type: object
+  status:
+    type: integer
+    description: |
+      status
+      - 0: created
+      - 1: queued
+      - 2: training
+      - 3: done
+      - 4: failed
+    enum: [0, 1, 2, 3, 4]

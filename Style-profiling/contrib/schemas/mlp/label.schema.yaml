@@ -1,0 +1,11 @@
+$id: http://ai-dev.diquest.com/label.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: label schema
+type: object
+properties:
+  dataset_id:
+    type: string
+  name:
+    type: string
+  color:
+    type: string

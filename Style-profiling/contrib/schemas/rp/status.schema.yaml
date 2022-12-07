@@ -1,0 +1,44 @@
+$id: http://ai-dev.diquest.com/dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: status schema
+type: object
+properties:
+  customer:
+    type: object
+    properties:
+      total:
+        type: integer
+        minimum: 0
+      in:
+        type: integer
+        minimum: 0
+      out:
+        type: integer
+        minimum: 0
+  product:
+    type: object
+    properties:
+      total:
+        type: integer
+        minimum: 0
+      in:
+        type: integer
+        minimum: 0
+      out:
+        type: integer
+        minimum: 0
+  history:
+    type: object
+    properties:
+      total:
+        type: integer
+        minimum: 0
+      in:
+        type: integer
+        minimum: 0
+      out:
+        type: integer
+        minimum: 0
+  date:
+    type: string
+    format: date

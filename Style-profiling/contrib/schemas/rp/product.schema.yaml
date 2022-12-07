@@ -1,0 +1,31 @@
+$id: http://ai-dev.diquest.com/dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: product schema
+type: object
+properties:
+  identifier:
+    type: integer
+    minimum: 1
+  name:
+    type: string
+  description:
+    type: string
+  image:
+    type: string
+  label:
+    type: string
+  gender:
+    type: string
+    enum: ['남성', '여성', '혼성']
+  attributes:
+    type: array
+    items:
+      type: object
+      required: [key, values, ]
+      properties:
+        key:
+          type: string
+        values:
+          type: array
+          items:
+            type: string

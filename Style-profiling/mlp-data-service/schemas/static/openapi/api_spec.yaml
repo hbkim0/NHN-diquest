@@ -1,0 +1,1709 @@
+openapi: 3.0.1
+
+info:
+  title: MLP Data Service
+  description: MLPlatform Data Management Service Backend
+  version: 0.4.1
+
+servers:
+  - url: http://localhost:9890
+
+tags:
+  - name: File
+    description: ''
+  - name: Dataset
+    description: ''
+  - name: Bundle
+    description: ''
+  - name: Annotation
+    description: ''
+  - name: Versioned Dataset
+    description: ''
+  - name: Label
+    description: ''
+  - name: Experiment
+    description: ''
+  - name: Model
+    description: ''
+  - name: Function
+    description: ''
+
+paths:
+  /files/upload:
+    post:
+      summary: ''
+      description: ''
+      tags:
+        - File
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [dataset_id, files, ]
+              properties:
+                dataset_id:
+                  type: string
+                bundle_id:
+                  type: string
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /files/{id}:
+    get:
+      summary: ''
+      description: ''
+      tags:
+        - File
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/datasets:
+    post:
+      summary: ''
+      tags:
+        - Dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: ml_task
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Dataset'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/datasets/{id}:
+    get:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: ''
+      tags:
+        - Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/bundles:
+    post:
+      summary: ''
+      tags:
+        - Bundle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Bundle
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bundle'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/bundles/{id}:
+    get:
+      summary: ''
+      tags:
+        - Bundle
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Bundle
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: 'Last bundle cannot be deleted. After deletion, all data that the bundle had is moved to another bundle.'
+      tags:
+        - Bundle
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/annotations:
+    get:
+      summary: ''
+      tags:
+        - Annotation
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: bundle_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: labeled
+          in: query
+          description: '0 - unlabeled, 1 - labeled'
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: versioned_dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: attribute
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: split
+          in: query
+          description: |
+            - 0: training
+            - 1: validation
+            - 2: testing
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Annotation'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/annotations/{id}:
+    get:
+      summary: ''
+      tags:
+        - Annotation
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Annotation
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/versioned-datasets:
+    post:
+      summary: ''
+      tags:
+        - Versioned Dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VersdatasetCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedDataset'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Versioned Dataset
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: ml_task
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+        - name: dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VersionedDataset'
+  /api/v1/versioned-datasets/{id}:
+    get:
+      summary: ''
+      tags:
+        - Versioned Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedDataset'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: ''
+      tags:
+        - Versioned Dataset
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/labels:
+    post:
+      summary: ''
+      tags:
+        - Label
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Label'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Label
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Label'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/labels/{id}:
+    get:
+      summary: ''
+      tags:
+        - Label
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Label'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Label
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Label'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/experiments:
+    post:
+      summary: ''
+      tags:
+        - Experiment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: ml_task
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+        - name: dataset_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3, 4]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/experiments/{id}:
+    get:
+      summary: ''
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      description: 'Updating is only possible when the status is created.'
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: 'Deletion is possible only when the status is created, done or failed.'
+      tags:
+        - Experiment
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/models:
+    get:
+      summary: ''
+      tags:
+        - Model
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: ml_task
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Model'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/functions:
+    get:
+      summary: ''
+      tags:
+        - Function
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: ml_task
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Function'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/tensorboards:
+    post:
+      summary: ''
+      description: ''
+      tags:
+        - Experiment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [experiment_ids]
+              properties:
+                experiment_ids:
+                  oneOf:
+                    - $ref: '#/components/schemas/ObjectId'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/ObjectId'
+                      minItems: 1
+                      uniqueItems: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [url]
+                properties:
+                  url:
+                    type: string
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'          
+
+components:
+  schemas:
+    Algorithm:
+      type: object
+      properties:
+        name:
+          type: string
+        image_name:
+          type: string
+        training_params:
+          type: array
+          items:
+            type: object
+            required: [name, type, default, ]
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              argument:
+                type: string
+              default:
+                type: string
+        performance_metrics:
+          type: array
+          items:
+            type: object
+            required: [name, type, ]
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              value:
+                type: string
+    Attribute:
+      type: object
+      required: [key, value, ]
+      properties:
+        key:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+    LabelImage:
+      type: object
+      required: [bbox, label, ]
+      properties:
+        bbox:
+          type: array
+          description: '[left, top, right, bottom]'
+          items:
+            type: number
+          minItems: 4
+          maxItems: 4
+        label:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+    LabelText:
+      type: object
+      required: [type, text, ]
+      properties:
+        type:
+          type: string
+          enum: ['text', 'label']
+        text:
+          type: string
+        label:
+          type: string
+        color:
+          type: string
+    File:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        dataset_id:
+          type: string
+        bundle_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Dataset:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description: 
+          type: string
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        cover_image:
+          type: string
+        labeled_data:
+          type: integer
+          description: 'Annotated Data의 개수'
+          minimum: 0
+        total_data:
+          type: integer
+          description: '총 Data의 개수'
+          minimum: 0
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Bundle:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        dataset_id:
+          type: string
+          description: 'Cannot be modified after creation'
+        name:
+          type: string
+        description: 
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        labeled_data:
+          type: integer
+          description: 'Annotated Data의 개수'
+          minimum: 0
+        total_data:
+          type: integer
+          description: '총 Data의 개수'
+          minimum: 0
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Annotation:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        file_name:
+          type: string
+        file_url:
+          type: string
+        description:
+          type: string
+        done:
+          type: integer
+          description: '0 - undone, 1 - done'
+          enum: [0, 1]
+        split:
+          type: integer
+          description: |
+            - 0: training
+            - 1: validation
+            - 2: testing
+          enum: [0, 1, 2]
+        labels:
+          oneOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/LabelImage'
+            - type: array
+              items:
+                $ref: '#/components/schemas/LabelText'
+        label_info:
+          type: array
+          items:
+            type: object
+            properties:
+              label_id:
+                type: string
+              name:
+                type: string
+              color:
+                type: string
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    VersionedDataset:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        dataset_name:
+          type: string
+        index:
+          type: integer
+          minimum: 0
+        name:
+          type: string
+        gen_date:
+          type: string
+          description: '파일 생성일'
+          format: date-time
+        split:
+          type: array
+          description: 'train, valid, test 개수'
+          items:
+            type: integer
+          minItems: 3
+          maxItems: 3
+        status:
+          type: integer
+          description: |
+            status
+            - 0: queued
+            - 1: processing
+            - 2: done
+            - 3: failed
+          enum: [0, 1, 2, 3]
+        attribute_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Label:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        dataset_id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Experiment:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description:
+          type: string
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        dataset_name:
+          type: string
+        versioned_dataset_name:
+          type: string
+        versioned_dataset_index:
+          type: integer
+        dataset_id:
+          type: string
+        model_name:
+          type: string
+        algorithms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Algorithm'
+        artifacts:
+          type: array
+          items:
+            type: object
+        status:
+          type: integer
+          description: |
+            status
+            - 0: created
+            - 1: queued
+            - 2: training
+            - 3: done
+            - 4: failed
+          enum: [0, 1, 2, 3, 4]
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Model:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description:
+          type: string
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        algorithms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Algorithm'
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Function:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        ml_task:
+          type: integer
+          description: |
+            ml_task
+            - 0: text deep tagging
+            - 1: image deep tagging
+            - 2: virtual try-on
+          enum: [0, 1, 2]
+        type:
+          type: integer
+          description: |
+            - 0: preprocessing
+            - 1: augmentation
+          enum: [0, 1]
+        name:
+          type: string
+        params:
+          type: array
+          items:
+            type: object
+        function_name:
+          type: string
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    ObjectId:
+      type: string
+      description: id 
+    ResponseErrorDto:
+      type: object
+      required: [error_code, error_message]
+      properties:
+        error_code:
+          type: integer
+          description: ''
+        error_message:
+          type: string
+          description: ''
+    DatasetCreateDto:
+      type: object
+      required: [ml_task, name, ]
+      properties:
+        ml_task:
+          type: string
+        name:
+          type: string
+        description: 
+          type: string
+        max_index:
+          type: integer
+    DatasetUpdateDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        cover_image:
+          type: string
+    BundleCreateDto:
+      type: object
+      required: [dataset_id, name, ]
+      properties:
+        dataset_id:
+          type: string
+        name:
+          type: string
+        description: 
+          type: string
+    BundleUpdateDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+    AnnotationUpdateDto:
+      type: object
+      properties:
+        done:
+          type: integer
+        labels:
+          oneOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/LabelImage'
+            - type: array
+              items:
+                type: object
+                required: [type, text, ]
+                properties:
+                  type:
+                    type: string
+                    enum: ['text', 'label']
+                  text:
+                    type: string
+                  label_id:
+                    type: string
+    VersdatasetCreateDto:
+      type: object
+      required: [dataset_id, bundle_ids, split, preprocessing, augmentation, name, ]
+      properties:
+        dataset_id:
+          type: string 
+        bundle_ids:
+          type: array
+          items:
+            type: string
+        split:
+          type: array
+          description: 'train, valid, test 개수'
+          items:
+            type: integer
+          maxItems: 3
+          minItems: 3
+        preprocessing:
+          type: array
+          items:
+            type: object
+            properties:
+              function_id:
+                type: string
+              params:
+                type: object                  
+        augmentation:
+          type: array
+          items:
+            type: object
+            properties:
+              function_id:
+                type: string
+              params:
+                type: object
+        name:
+          type: string
+    VersdatasetUpdateDto:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: |
+            status
+            - 0: queued
+            - 1: processing
+            - 2: done
+            - 3: failed
+          enum: [0, 1, 2, 3]
+    LabelCreateDto:
+      type: object
+      required: [dataset_id, name, color, ]
+      properties:
+        dataset_id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+    LabelUpdateDto:
+      type: object
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+    ExperimentCreateDto:
+      type: object
+      required: [dataset_id, versioned_dataset_id, model_id, name, ]
+      properties:
+        dataset_id:
+          type: string
+        versioned_dataset_id:
+          type: string
+        model_id:
+          type: string
+        name:
+          type: string
+    ExperimentUpdateDto:
+      type: object
+      properties:
+        name:
+          type: string
+        algorithms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Algorithm'
+        status:
+          type: integer
+          description: |
+            status
+            - 0: created
+            - 1: queued
+            - 2: training
+            - 3: done
+            - 4: failed
+          enum: [0, 1, 2, 3, 4]
+            
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 100
+        default: 20
+    SortBy:
+      name: sort_by
+      in: query
+      description: |
+        sorting<br>
+        - syntax: `{+|-}{filedname}` (e.g., +name)
+          - (`+`): ascending order
+          - (`-`): descending order
+        - for multi-column sorting, comma seperate. (e.g., sort_by=+name,-desc)
+      required: false
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        $ref: '#/components/schemas/ObjectId'
+
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    204NoContent:
+      description: No Content
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    404NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    500InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+
+  headers:
+    Location:
+      description: URI of the new resource
+      schema:
+        type: string
+        format: uri

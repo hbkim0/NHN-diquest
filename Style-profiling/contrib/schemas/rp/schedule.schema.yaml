@@ -1,0 +1,15 @@
+$id: http://ai-dev.diquest.com/dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: schedule schema
+type: object
+properties:
+  cron:
+    type: string
+    example: '0 11 * * MON-FRI'
+  priority:
+    type: integer
+    description: '1 - normal, 0 - immediately invoked'
+    enum: [0, 1]
+  sequence:
+    type: integer
+    minimum: 1

@@ -1,0 +1,14 @@
+{"_id":{"$oid":"6372d793b99bb7f5cd83290f"},"model_id":"6372d73ab99bb7f5cd83290c","seq_num_major":9,"seq_num_minor":2,"status":0,"serving":0,"start_time":"","end_time":"","parameters":[{"key":"embedding_dim","value":4},{"key":"lr","value":0.001},{"key":"epoch","value":10},{"key":"batch_size","value":128}],"rmse":null}
+
+{"_id":{"$oid":"5372d793b99bb7f5cd83290f"},"model_id":"6372d73ab99bb7f5cd83290c","seq_num_major":9,"seq_num_minor":1,"status":0,"serving":0,"start_time":"","end_time":"","parameters":[{"key":"embedding_dim","value":4},{"key":"lr","value":0.001},{"key":"epoch","value":20},{"key":"batch_size","value":128}],"rmse":null}
+
+/** 
+* Paste one or more documents here
+*/
+{
+    "_id": {
+        "$oid": "6372d966b99bb7f5cd832913"
+    },
+    "cron": "*/5 * * * * *",
+    "priority": 0
+}
