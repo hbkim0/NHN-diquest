@@ -1,0 +1,532 @@
+$id: http://ai-dev.diquest.com/k-fashion-dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: K-Fashion dataset schema
+definitions:
+  RectCoord:
+    oneOf:
+    - type: object
+      required:
+      - X좌표
+      - Y좌표
+      - 가로
+      - 세로
+      properties:
+        X좌표:
+          type: number
+        Y좌표:
+          type: number
+        가로:
+          type: number
+        세로:
+          type: number
+      additionalProperties: false
+    - type: object
+      additionalProperties: false
+  PolyCoord:
+    oneOf:
+    - type: object
+      patternProperties:
+        "^[XY]좌표":
+          type: number
+      minProperties: 1
+      additionalProperties: false
+    - type: object
+      additionalProperties: false
+  StyleList:
+    type: string
+    enum:
+    - 레트로
+    - 로맨틱
+    - 리조트
+    - 매니시
+    - 모던
+    - 밀리터리
+    - 섹시
+    - 소피스트케이티드
+    - 스트리트
+    - 스포티
+    - 아방가르드
+    - 오리엔탈
+    - 웨스턴
+    - 젠더리스
+    - 컨트리
+    - 클래식
+    - 키치
+    - 톰보이
+    - 펑크
+    - 페미닌
+    - 프레피
+    - 히피
+    - 힙합
+  LengthOuter:
+    type: string
+    enum:
+    - 노말
+    - 롱
+    - 맥시
+    - 크롭
+    - 하프
+  LengthBottomOnepiece:
+    type: string
+    enum:
+    - 니렝스
+    - 맥시
+    - 미니
+    - 미디
+    - 발목
+  LengthTop:
+    type: string
+    enum:
+    - 노멀
+    - 롱
+    - 크롭
+  Neckline:
+    type: string
+    enum:
+    - 노카라
+    - 라운드넥
+    - 보트넥
+    - 브이넥
+    - 스위트하트
+    - 스퀘어넥
+    - 오프숄더
+    - 원숄더
+    - 유넥
+    - 터틀넥
+    - 홀터넥
+    - 후드
+  Detail:
+    type: string
+    enum:
+    - X스트랩
+    - 글리터
+    - 니트꽈베기
+    - 단추
+    - 더블브레스티드
+    - 드롭숄더
+    - 드롭웨이스트
+    - 디스트로이드
+    - 띠
+    - 러플
+    - 레이스
+    - 레이스업
+    - 롤업
+    - 리본
+    - 버클
+    - 비대칭
+    - 비즈
+    - 셔링
+    - 스터드
+    - 스트링
+    - 스티치
+    - 스팽글
+    - 슬릿
+    - 싱글브레스티드
+    - 자수
+    - 지퍼
+    - 체인
+    - 컷아웃
+    - 퀄팅
+    - 태슬
+    - 패치워크
+    - 퍼트리밍
+    - 퍼프
+    - 페플럼
+    - 포켓
+    - 폼폼
+    - 프린지
+    - 프릴
+    - 플레어
+    - 플리츠
+  Color:
+    type: string
+    enum:
+    - 골드
+    - 그레이
+    - 그린
+    - 네온
+    - 네이비
+    - 라벤더
+    - 레드
+    - 민트
+    - 베이지
+    - 브라운
+    - 블랙
+    - 블루
+    - 스카이블루
+    - 실버
+    - 옐로우
+    - 오렌지
+    - 와인
+    - 카키
+    - 퍼플
+    - 핑크
+    - 화이트
+  Sleeve:
+    type: string
+    enum:
+    - 7부소매
+    - 긴팔
+    - 민소매
+    - 반팔
+    - 없음
+    - 캡
+  Material:
+    type: string
+    enum:
+    - 가죽
+    - 네오프렌
+    - 니트
+    - 데님
+    - 레이스
+    - 린넨
+    - 메시
+    - 무스탕
+    - 벨벳
+    - 비닐/PVC
+    - 스웨이드
+    - 스판덱스
+    - 시퀸/글리터
+    - 시폰
+    - 실크
+    - 우븐
+    - 울/캐시미어
+    - 자카드
+    - 저지
+    - 코듀로이
+    - 트위드
+    - 패딩
+    - 퍼
+    - 플리스
+    - 헤어 니트
+  Collar:
+    type: string
+    enum:
+    - 밴드칼라
+    - 보우칼라
+    - 세일러칼라
+    - 셔츠칼라
+    - 숄칼라
+    - 차이나칼라
+    - 테일러드칼라
+    - 폴로칼라
+    - 피터팬칼라
+  CategoryOuter:
+    type: string
+    enum:
+    - 가디건
+    - 베스트
+    - 재킷
+    - 점퍼
+    - 짚업
+    - 코트
+    - 패딩
+  CategoryBottom:
+    type: string
+    enum:
+    - 래깅스
+    - 스커트
+    - 조거팬츠
+    - 청바지
+    - 팬츠
+  CategoryOnepiece:
+    type: string
+    enum:
+    - 드레스
+    - 점프수트
+  CategoryTop:
+    type: string
+    enum:
+    - 니트웨어
+    - 브라탑
+    - 블라우스
+    - 셔츠
+    - 탑
+    - 티셔츠
+    - 후드티
+  Print:  # 하운즈 투스는 escape sequence 오류로 일단 공백으로 대체
+    type: string
+    enum:
+    - 그라데이션
+    - 그래픽
+    - 깅엄
+    - 도트
+    - 레터링
+    - 무지
+    - 믹스
+    - 뱀피
+    - 스트라이프
+    - 아가일
+    - 지그재그
+    - 지브라
+    - 체크
+    - 카무플라쥬
+    - 타이다이
+    - 페이즐리
+    - 플로럴
+    - 하운즈 투스
+    - 하트
+    - 해골
+    - 호피
+  FitBottom:
+    type: string
+    enum:
+    - 노멀
+    - 루즈
+    - 벨보텀
+    - 스키니
+    - 와이드
+  Fit:
+    type: string
+    enum:
+    - 노멀
+    - 루즈
+    - 오버사이즈
+    - 타이트
+  AttrOuter:
+    type: object
+    properties:
+      기장:
+        "$ref": "#/definitions/LengthOuter"
+      넥라인:
+        "$ref": "#/definitions/Neckline"
+      디테일:
+        type: array
+        items:
+          "$ref": "#/definitions/Detail"
+      색상:
+        "$ref": "#/definitions/Color"
+      서브색상:
+        "$ref": "#/definitions/Color"
+      소매기장:
+        "$ref": "#/definitions/Sleeve"
+      소재:
+        type: array
+        items:
+          "$ref": "#/definitions/Material"
+      옷깃:
+        "$ref": "#/definitions/Collar"
+      카테고리:
+        "$ref": "#/definitions/CategoryOuter"
+      프린트:
+        type: array
+        items:
+          "$ref": "#/definitions/Print"
+      핏:
+        "$ref": "#/definitions/Fit"
+  AttrBottom:
+    type: object
+    properties:
+      기장:
+        "$ref": "#/definitions/LengthBottomOnepiece"
+      디테일:
+        type: array
+        items:
+          "$ref": "#/definitions/Detail"
+      색상:
+        "$ref": "#/definitions/Color"
+      서브색상:
+        "$ref": "#/definitions/Color"
+      소재:
+        type: array
+        items:
+          "$ref": "#/definitions/Material"
+      카테고리:
+        "$ref": "#/definitions/CategoryBottom"
+      프린트:
+        type: array
+        items:
+          "$ref": "#/definitions/Print"
+      핏:
+        "$ref": "#/definitions/FitBottom"
+  AttrOnepiece:
+    type: object
+    properties:
+      기장:
+        "$ref": "#/definitions/LengthBottomOnepiece"
+      넥라인:
+        "$ref": "#/definitions/Neckline"
+      디테일:
+        type: array
+        items:
+          "$ref": "#/definitions/Detail"
+      색상:
+        "$ref": "#/definitions/Color"
+      서브색상:
+        "$ref": "#/definitions/Color"
+      소매기장:
+        "$ref": "#/definitions/Sleeve"
+      소재:
+        type: array
+        items:
+          "$ref": "#/definitions/Material"
+      옷깃:
+        "$ref": "#/definitions/Collar"
+      카테고리:
+        "$ref": "#/definitions/CategoryOnepiece"
+      프린트:
+        type: array
+        items:
+          "$ref": "#/definitions/Print"
+      핏:
+        "$ref": "#/definitions/Fit"
+  AttrTop:
+    type: object
+    properties:
+      기장:
+        "$ref": "#/definitions/LengthTop"
+      넥라인:
+        "$ref": "#/definitions/Neckline"
+      디테일:
+        type: array
+        items:
+          "$ref": "#/definitions/Detail"
+      색상:
+        "$ref": "#/definitions/Color"
+      서브색상:
+        "$ref": "#/definitions/Color"
+      소매기장:
+        "$ref": "#/definitions/Sleeve"
+      소재:
+        type: array
+        items:
+          "$ref": "#/definitions/Material"
+      옷깃:
+        "$ref": "#/definitions/Collar"
+      카테고리:
+        "$ref": "#/definitions/CategoryTop"
+      프린트:
+        type: array
+        items:
+          "$ref": "#/definitions/Print"
+      핏:
+        "$ref": "#/definitions/Fit"
+type: object
+required:
+- 이미지 정보
+- 데이터셋 정보
+properties:
+  이미지 정보:
+    type: object
+    required:
+    - 이미지 식별자
+    - 이미지 높이
+    - 이미지 파일명
+    - 이미지 너비
+    properties:
+      이미지 식별자:
+        type: integer
+        minimum: 0
+      이미지 높이:
+        type: number
+        minimum: 0
+      이미지 파일명:
+        type: string
+      이미지 너비:
+        type: number
+        minimum: 0
+  데이터셋 정보:
+    type: object
+    required:
+    - 파일 생성일자
+    - 데이터셋 상세설명
+    - 파일 번호
+    - 파일 이름
+    properties:
+      파일 생성일자:
+        type: string
+      데이터셋 상세설명:
+        type: object
+        required:
+        - 렉트좌표
+        - 폴리곤좌표
+        - 라벨링
+        properties:
+          렉트좌표:
+            type: object
+            required:
+            - 아우터
+            - 하의
+            - 원피스
+            - 상의
+            properties:
+              아우터:
+                type: array
+                items:
+                  "$ref": "#/definitions/RectCoord"
+              하의:
+                type: array
+                items:
+                  "$ref": "#/definitions/RectCoord"
+              원피스:
+                type: array
+                items:
+                  "$ref": "#/definitions/RectCoord"
+              상의:
+                type: array
+                items:
+                  "$ref": "#/definitions/RectCoord"
+          폴리곤좌표:
+            type: object
+            required:
+            - 아우터
+            - 하의
+            - 원피스
+            - 상의
+            properties:
+              아우터:
+                type: array
+                items:
+                  "$ref": "#/definitions/PolyCoord"
+              하의:
+                type: array
+                items:
+                  "$ref": "#/definitions/PolyCoord"
+              원피스:
+                type: array
+                items:
+                  "$ref": "#/definitions/PolyCoord"
+              상의:
+                type: array
+                items:
+                  "$ref": "#/definitions/PolyCoord"
+          라벨링:
+            type: object
+            required:
+            - 스타일
+            - 아우터
+            - 하의
+            - 원피스
+            - 상의
+            properties:
+              스타일:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - 스타일
+                  properties:
+                    스타일:
+                      "$ref": "#/definitions/StyleList"
+                    서브스타일:
+                      "$ref": "#/definitions/StyleList"
+              아우터:
+                type: array
+                items:
+                  "$ref": "#/definitions/AttrOuter"
+              하의:
+                type: array
+                items:
+                  "$ref": "#/definitions/AttrBottom"
+              원피스:
+                type: array
+                items:
+                  "$ref": "#/definitions/AttrOnepiece"
+              상의:
+                type: array
+                items:
+                  "$ref": "#/definitions/AttrTop"
+      파일 번호:
+        type: integer
+      파일 이름:
+        type: string

@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "ingestor"
+version = "0.2.0"
+description = ""
+authors = ["AI-선행기술개발팀 <ai-dev@diquest.com>"]
+
+[tool.poetry.dependencies]
+python = "~3.8"
+typer-cli = "0.0.12"
+pymongo = "~3.12"
+fastjsonschema = "^2.15.1"
+PyYAML = "^6.0"
+pydash = "^5.1.0"
+pandas = "^1.5.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+pyfiglet = "^0.8.post1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

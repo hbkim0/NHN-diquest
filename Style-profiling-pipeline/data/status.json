@@ -1,0 +1,419 @@
+[{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af281d"
+  },
+  "customer": {
+    "total": 933,
+    "in": 5,
+    "out": -2
+  },
+  "product": {
+    "total": 1591,
+    "in": 44,
+    "out": -5
+  },
+  "history": {
+    "total": 58991,
+    "in": 108,
+    "out": -34
+  },
+  "date": {
+    "$date": "2022-10-30T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af281e"
+  },
+  "customer": {
+    "total": 936,
+    "in": 2,
+    "out": 0
+  },
+  "product": {
+    "total": 1630,
+    "in": 23,
+    "out": -2
+  },
+  "history": {
+    "total": 59065,
+    "in": 234,
+    "out": 0
+  },
+  "date": {
+    "$date": "2022-10-31T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af281f"
+  },
+  "customer": {
+    "total": 938,
+    "in": 4,
+    "out": -1
+  },
+  "product": {
+    "total": 1651,
+    "in": 36,
+    "out": -4
+  },
+  "history": {
+    "total": 59299,
+    "in": 320,
+    "out": -5
+  },
+  "date": {
+    "$date": "2022-11-01T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2820"
+  },
+  "customer": {
+    "total": 941,
+    "in": 15,
+    "out": -7
+  },
+  "product": {
+    "total": 1683,
+    "in": 50,
+    "out": -8
+  },
+  "history": {
+    "total": 59614,
+    "in": 520,
+    "out": -20
+  },
+  "date": {
+    "$date": "2022-11-02T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2821"
+  },
+  "customer": {
+    "total": 949,
+    "in": 23,
+    "out": -14
+  },
+  "product": {
+    "total": 1725,
+    "in": 23,
+    "out": -10
+  },
+  "history": {
+    "total": 60114,
+    "in": 611,
+    "out": -48
+  },
+  "date": {
+    "$date": "2022-11-03T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2822"
+  },
+  "customer": {
+    "total": 958,
+    "in": 32,
+    "out": -10
+  },
+  "product": {
+    "total": 1738,
+    "in": 15,
+    "out": -5
+  },
+  "history": {
+    "total": 60677,
+    "in": 721,
+    "out": -24
+  },
+  "date": {
+    "$date": "2022-11-04T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2823"
+  },
+  "customer": {
+    "total": 980,
+    "in": 44,
+    "out": -6
+  },
+  "product": {
+    "total": 1748,
+    "in": 8,
+    "out": -11
+  },
+  "history": {
+    "total": 61374,
+    "in": 480,
+    "out": -5
+  },
+  "date": {
+    "$date": "2022-11-05T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2824"
+  },
+  "customer": {
+    "total": 1018,
+    "in": 15,
+    "out": -7
+  },
+  "product": {
+    "total": 1745,
+    "in": 15,
+    "out": 0
+  },
+  "history": {
+    "total": 61849,
+    "in": 366,
+    "out": -35
+  },
+  "date": {
+    "$date": "2022-11-06T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2825"
+  },
+  "customer": {
+    "total": 1026,
+    "in": 8,
+    "out": -20
+  },
+  "product": {
+    "total": 1760,
+    "in": 22,
+    "out": -3
+  },
+  "history": {
+    "total": 62180,
+    "in": 378,
+    "out": -222
+  },
+  "date": {
+    "$date": "2022-11-07T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2826"
+  },
+  "customer": {
+    "total": 1014,
+    "in": 22,
+    "out": -5
+  },
+  "product": {
+    "total": 1779,
+    "in": 11,
+    "out": -9
+  },
+  "history": {
+    "total": 62336,
+    "in": 510,
+    "out": -25
+  },
+  "date": {
+    "$date": "2022-11-08T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2827"
+  },
+  "customer": {
+    "total": 1031,
+    "in": 16,
+    "out": -10
+  },
+  "product": {
+    "total": 1781,
+    "in": 20,
+    "out": -20
+  },
+  "history": {
+    "total": 62821,
+    "in": 396,
+    "out": -34
+  },
+  "date": {
+    "$date": "2022-11-09T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2828"
+  },
+  "customer": {
+    "total": 1037,
+    "in": 56,
+    "out": -2
+  },
+  "product": {
+    "total": 1781,
+    "in": 252,
+    "out": -4
+  },
+  "history": {
+    "total": 63183,
+    "in": 422,
+    "out": -5
+  },
+  "date": {
+    "$date": "2022-11-10T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af2829"
+  },
+  "customer": {
+    "total": 1091,
+    "in": 98,
+    "out": -9
+  },
+  "product": {
+    "total": 2029,
+    "in": 66,
+    "out": -22
+  },
+  "history": {
+    "total": 63600,
+    "in": 1623,
+    "out": -81
+  },
+  "date": {
+    "$date": "2022-11-11T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282a"
+  },
+  "customer": {
+    "total": 1180,
+    "in": 33,
+    "out": -11
+  },
+  "product": {
+    "total": 2073,
+    "in": 22,
+    "out": -72
+  },
+  "history": {
+    "total": 65142,
+    "in": 224,
+    "out": -27
+  },
+  "date": {
+    "$date": "2022-11-12T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282b"
+  },
+  "customer": {
+    "total": 1202,
+    "in": 20,
+    "out": -14
+  },
+  "product": {
+    "total": 2023,
+    "in": 34,
+    "out": -11
+  },
+  "history": {
+    "total": 65339,
+    "in": 652,
+    "out": -34
+  },
+  "date": {
+    "$date": "2022-11-13T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282c"
+  },
+  "customer": {
+    "total": 1208,
+    "in": 11,
+    "out": -7
+  },
+  "product": {
+    "total": 2046,
+    "in": 64,
+    "out": -26
+  },
+  "history": {
+    "total": 65957,
+    "in": 375,
+    "out": -9
+  },
+  "date": {
+    "$date": "2022-11-14T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282d"
+  },
+  "customer": {
+    "total": 1212,
+    "in": 15,
+    "out": 0
+  },
+  "product": {
+    "total": 2084,
+    "in": 16,
+    "out": -2
+  },
+  "history": {
+    "total": 66323,
+    "in": 206,
+    "out": 0
+  },
+  "date": {
+    "$date": "2022-11-15T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282e"
+  },
+  "customer": {
+    "total": 1227,
+    "in": 66,
+    "out": -1
+  },
+  "product": {
+    "total": 2098,
+    "in": 12,
+    "out": -4
+  },
+  "history": {
+    "total": 66529,
+    "in": 385,
+    "out": -20
+  },
+  "date": {
+    "$date": "2022-11-16T00:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "6375baa6faeac19df1af282f"
+  },
+  "customer": {
+    "total": 1292,
+    "in": 23,
+    "out": -8
+  },
+  "product": {
+    "total": 2106,
+    "in": 34,
+    "out": -9
+  },
+  "history": {
+    "total": 66894,
+    "in": 287,
+    "out": -31
+  },
+  "date": {
+    "$date": "2022-11-17T00:00:00Z"
+  }
+}]

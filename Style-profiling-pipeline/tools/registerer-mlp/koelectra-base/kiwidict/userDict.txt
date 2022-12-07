@@ -1,0 +1,419 @@
+남자	NNG	0
+여자	NNG	0
+남성	NNG	0
+여성	NNG	0
+남녀	NNG	0
+갤럭시	NNG	0
+헤라시	NNG	0
+꽈배기	NNG	0
+그라데이션	NNG	0
+그래픽	NNG	0
+다이아몬드	NNG	0
+글랜	NNG	0
+기하학	NNG	0
+깅엄	NNG	0
+도트	NNG	0
+레오파드	NNG	0
+레터링	NNG	0
+리프	NNG	0
+마블	NNG	0
+멀티	NNG	0
+무지	NNG	0
+블록	NNG	0
+스네이크	NNG	0
+스프레이	NNG	0
+스트라이프	NNG	0
+아가일	NNG	0
+엠보	NNG	0
+에스닉	NNG	0
+윈도우페인	NNG	0
+지브라	NNG	0
+체크	NNG	0
+카모플라쥬	NNG	0
+크로셰	NNG	0
+타이다이	NNG	0
+페이즐리	NNG	0
+파이톤	NNG	0
+플라워	NNG	0
+하운드투스	NNG	0
+하트	NNG	0
+해골	NNG	0
+나무	NNG	0
+헤링본	NNG	0
+가을	NNG	0
+겨울	NNG	0
+봄	NNG	0
+사계절	NNG	0
+한여름	NNG	0
+초겨울	NNG	0
+늦가을	NNG	0
+여름	NNG	0
+간절기	NNG	0
+드롭핏	MAG	0
+루즈핏	MAG	0
+베이직핏	MAG	0
+슬림 스트레이트핏	MAG	0
+슬림 테이퍼드핏	MAG	0
+슬림핏	MAG	0
+오버핏	MAG	0
+와이드핏	MAG	0
+일자핏	MAG	0
+테이퍼드핏	MAG	0
+레귤러핏	MAG	0
+에이핏	MAG	0
+벌룬핏	MAG	0
+넉넉한핏	MAG	0
+셔링핏	MAG	0
+볼륨핏	MAG	0
+절개핏	MAG	0
+배기핏	MAG	0
+미니멀한핏	MAG	0
+박시핏	MAG	0
+네트핏	MAG	0
+드롭	MAG	0
+루즈	MAG	0
+베이직	MAG	0
+슬림 스트레이트	MAG	0
+슬림 테이퍼드	MAG	0
+슬림	MAG	0
+와이드	MAG	0
+일자	MAG	0
+테이퍼드	MAG	0
+레귤러	MAG	0
+넉넉한	MAG	0
+셔링	MAG	0
+볼륨	MAG	0
+절개	MAG	0
+배기	MAG	0
+미니멀	MAG	0
+박시	MAG	0
+널널	MAG	0
+노란색	NNG	0
+하얀색	NNG	0
+빨간색	NNG	0
+보라색	NNG	0
+분홍색	NNG	0
+피치색	NNG	0
+오렌지	NNG	0
+녹갈색	NNG	0
+오프 화이트	NNG	0
+네이비 블루	NNG	0
+머스타드	NNG	0
+머쉬룸 브라운	NNG	0
+다색 무늬	NNG	0
+베이지	NNG	0
+차콜	NNG	0
+커피 브라운	NNG	0
+블랙	NNG	0
+그린	NNG	0
+회색	NNG	0
+크림색	NNG	0
+진홍색	NNG	0
+골드색	NNG	0
+멜란지 그레이	NNG	0
+카키색	NNG	0
+라벤더색	NNG	0
+마젠타색	NNG	0
+라임그린색	NNG	0
+고동색	NNG	0
+연보라색	NNG	0
+그레이지	NNG	0
+샌드베이지	NNG	0
+코듀로이 올리브	NNG	0
+라이트그린	NNG	0
+버건디	NNG	0
+그린베이지	NNG	0
+스카이블루	NNG	0
+라이트베이지	NNG	0
+다크차콜	NNG	0
+다크그레이	NNG	0
+카멜	NNG	0
+블루	NNG	0
+청록	NNG	0
+스카이	NNG	0
+아이보리	NNG	0
+레드브라운	NNG	0
+코랄	NNG	0
+진네이비	NNG	0
+연네이비	NNG	0
+소라	NNG	0
+바이올렛	NNG	0
+연베이지	NNG	0
+진베이지	NNG	0
+형광옐로우	NNG	0
+형광핑크	NNG	0
+딥민트	NNG	0
+라이트민트	NNG	0
+와인	NNG	0
+네온	NNG	0
+형광그린	NNG	0
+형광주황	NNG	0
+연두	NNG	0
+자주	NNG	0
+네온오렌지	NNG	0
+네온그린	NNG	0
+진녹청	NNG	0
+연녹청	NNG	0
+인디고 블루	NNG	0
+다크블루	NNG	0
+딥블루	NNG	0
+사파이어 블루	NNG	0
+아이스청	NNG	0
+오렌지브라운	NNG	0
+머드	NNG	0
+코코아	NNG	0
+빨강	NNG	0
+노랑	NNG	0
+주황	NNG	0
+초록	NNG	0
+파란	NNG	0
+파랑	NNG	0
+보라	NNG	0
+빨간	NNG	0
+노란	NNG	0
+화이트	NNG	0
+흰색	NNG	0
+네이비	NNG	0
+PVC	NNG	0
+가죽	NNG	0
+골지	NNG	0
+기모	NNG	0
+기모져지원단	NNG	0
+나일론	NNG	0
+네오프렌	NNG	0
+니트	NNG	0
+데님	NNG	0
+레더	NNG	0
+레이스	NNG	0
+레이온	NNG	0
+보카시	NNG	0
+비스코스혼용	NNG	0
+린넨	NNG	0
+램스울	NNG	0
+립스톤	NNG	0
+마	NNG	0
+머서라이즈	NNG	0
+메시	NNG	0
+면	NNG	0
+모직	NNG	0
+모달	NNG	0
+모피	NNG	0
+벨벳	NNG	0
+분또	NNG	0
+보아	NNG	0
+비닐	NNG	0
+쉬폰	NNG	0
+스웨이드	NNG	0
+스판	NNG	0
+스판덱스	NNG	0
+스팽글	NNG	0
+시스루	NNG	0
+시보리	NNG	0
+시퀸	NNG	0
+실크	NNG	0
+아이스	NNG	0
+아크릴	NNG	0
+알파카	NNG	0
+앙고라	NNG	0
+아세테이드	NNG	0
+양면플리스	NNG	0
+양털	NNG	0
+슬라브	NNG	0
+에리	NNG	0
+오리털	NNG	0
+울	NNG	0
+웰론	NNG	0
+인조가죽	NNG	0
+인조양털	NNG	0
+인조토끼털	NNG	0
+자카드	NNG	0
+저지	NNG	0
+쭈리	NNG	0
+청	NNG	0
+캐시미어	NNG	0
+캔버스	NNG	0
+코듀로이	NNG	0
+코르덴	NNG	0
+캐시비스코스	NNG	0
+코마사	NNG	0
+코튼	NNG	0
+쿨아이스	NNG	0
+텐셀	NNG	0
+트위드	NNG	0
+트윌	NNG	0
+퍼	NNG	0
+페이크레더	NNG	0
+폴리	NNG	0
+폴리에스테르	NNG	0
+폴리우레탄	NNG	0
+플리츠	NNG	0
+플러시	NNG	0
+플리스	NNG	0
+헤비 싱글이중직	NNG	0
+헤비 웨이트 USA코튼 기모	NNG	0
+헤비 웨이트 스웻원단	NNG	0
+헤비웨이트	NNG	0
+헤비웨이트 양면 플리스 원단	NNG	0
+헤비웨이트 져지	NNG	0
+혼합소재	NNG	0
+화섬	NNG	0
+라운드넥	NNG	0
+롤넥	NNG	0
+U넥	NNG	0
+노카라	NNG	0
+만다린	NNG	0
+보트	NNG	0
+브이넥	NNG	0
+세일러	NNG	0
+셔츠칼라	NNG	0
+숄칼라	NNG	0
+스퀘어넥	NNG	0
+집업	NNG	0
+초커넥	NNG	0
+카울넥	NNG	0
+키홀넥	NNG	0
+타이	NNG	0
+터틀넥	NNG	0
+테일러드	NNG	0
+피터팬카라	NNG	0
+헨리넥	NNG	0
+홀터넥	NNG	0
+리본	NNG	0
+마린	NNG	0
+V넥	NNG	0
+크루넥	NNG	0
+솔리드모노키니	NNG	0
+셔링모노키니	NNG	0
+원피스수영복	NNG	0
+하이비키니	NNG	0
+트임모노키니	NNG	0
+스모크비키니	NNG	0
+모노키니	NNG	0
+래쉬가드	NNG	0
+블라우스	NNG	0
+브라	NNG	0
+가디건	NNG	0
+트랜치코트	NNG	0
+더플코트	NNG	0
+피코트	NNG	0
+더블브레스트코트	NNG	0
+싱글코트	NNG	0
+트렌치코트	NNG	0
+트렌치 코트	NNG	0
+트랜치 코트	NNG	0
+더플 코트	NNG	0
+싱글 코트	NNG	0
+상하의세트	NNG	0
+맥시 원피스	NNG	0
+랩 원피스	NNG	0
+민소매 원피스	NNG	0
+멜빵 원피스	NNG	0
+미니 원피스	NNG	0
+원피스	NNG	0
+미디 원피스	NNG	0
+롱 원피스	NNG	0
+맥시원피스	NNG	0
+랩원피스	NNG	0
+민소매원피스	NNG	0
+멜빵원피스	NNG	0
+미니원피스	NNG	0
+미디원피스	NNG	0
+롱원피스	NNG	0
+2 버튼	NNG	0
+3 버튼	NNG	0
+더블 브레스트	NNG	0
+캐주얼자켓	NNG	0
+셋업자켓	NNG	0
+싱글자켓	NNG	0
+셔츠자켓	NNG	0
+집업자켓	NNG	0
+블레이져	NNG	0
+레깅스	NNG	0
+MA-1	NNG	0
+다운자켓	NNG	0
+라이더자켓	NNG	0
+레더 자켓	NNG	0
+롱기장	NNG	0
+미드기장	NNG	0
+밀리터리	NNG	0
+반팔 자켓	NNG	0
+블루종	NNG	0
+사파리 자켓	NNG	0
+숏기장	NNG	0
+롱 코트	NNG	0
+패딩	NNG	0
+야상	NNG	0
+스테디움자켓	NNG	0
+아노락	NNG	0
+점퍼	NNG	0
+코치자켓	NNG	0
+트러커자켓	NNG	0
+트레이닝자켓	NNG	0
+항공점퍼	NNG	0
+헌팅자켓	NNG	0
+팬티	NNG	0
+데님 팬츠	NNG	0
+수트팬츠	NNG	0
+스웨터	NNG	0
+스웻팬츠	NNG	0
+스티치팬츠	NNG	0
+슬랙스	NNG	0
+오버롤	NNG	0
+와이드팬츠	NNG	0
+카고팬츠	NNG	0
+코튼팬츠	NNG	0
+조거팬츠	NNG	0
+트레이닝팬츠	NNG	0
+플레어 팬츠	NNG	0
+데님팬츠	NNG	0
+롬퍼	NNG	0
+레이어드티	NNG	0
+티셔츠	NNG	0
+반팔 셔츠	NNG	0
+반팬츠	NNG	0
+숏 팬츠	NNG	0
+롱스커트	NNG	0
+미니 스커트	NNG	0
+미티스커트	NNG	0
+셔링스커트	NNG	0
+긴팔카라셔츠	NNG	0
+긴팔티셔츠	NNG	0
+박시티	NNG	0
+반팔티	NNG	0
+카라티	NNG	0
+반팔카라셔츠	NNG	0
+슬리브리스	NNG	0
+숏슬리브	NNG	0
+롱슬리브	NNG	0
+브라팬티세트	NNG	0
+속옷/잠옷	NNG	0
+맨투맨	NNG	0
+스웻셔츠	NNG	0
+크루넥니트	NNG	0
+하프집업	NNG	0
+후드집업	NNG	0
+크롭	NNG	0
+후디	NNG	0
+패딩베스트	NNG	0
+다운베스트	NNG	0
+정장용 베스트	NNG	0
+빈티지	MAG	0
+여리여리	MAG	0
+페미닌	MAG	0
+드레시	MAG	0
+고급스러	MAG	0
+프레피	MAG	0
+소녀스러	MAG	0
+하늘하늘	MAG	0
+여성스러	MAG	0
+걸리시	MAG	0
+나긋	MAG	0
+네추럴	MAG	0
+센슈얼	MAG	0
+클래식	MAG	0
+유니크	MAG	0
+미니미니	MAG	0
+소녀소녀	MAG	0
+캐쥬얼	MAG	0
+캐주얼	MAG	0
+트렌디	MAG	0

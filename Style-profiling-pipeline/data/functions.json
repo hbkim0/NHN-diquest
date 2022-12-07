@@ -1,0 +1,129 @@
+[{
+  "_id": {
+    "$oid": "635b279a3f09ee7519e7a204"
+  },
+  "ml_task": 1,
+  "type": 0,
+  "name": "Grayscale",
+  "params": [],
+  "function_name": "grayscale_img",
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-14T02:18:42.926Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-14T04:55:39.564Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "635b27b83f09ee7519e7a205"
+  },
+  "ml_task": 1,
+  "type": 1,
+  "name": "Blur",
+  "params": [],
+  "function_name": "blur_img",
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-14T02:18:42.926Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-14T04:55:39.564Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "635b28193f09ee7519e7a206"
+  },
+  "ml_task": 1,
+  "type": 1,
+  "name": "Flip",
+  "params": [
+    {
+      "name": "Horizontal",
+      "type": "checkbox"
+    },
+    {
+      "name": "Vertical",
+      "type": "checkbox"
+    }
+  ],
+  "function_name": "flip_img",
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-14T02:18:42.926Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-14T04:55:39.564Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "635b28f53f09ee7519e7a207"
+  },
+  "ml_task": 1,
+  "type": 0,
+  "name": "Resize",
+  "params": [
+    {
+      "name": "Width",
+      "type": "number",
+      "min": "1"
+    },
+    {
+      "name": "Height",
+      "type": "number",
+      "min": "1"
+    }
+  ],
+  "function_name": "resize_img",
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-14T02:18:42.926Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-14T04:55:39.564Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "635b29763f09ee7519e7a208"
+  },
+  "ml_task": 1,
+  "type": 1,
+  "name": "Rotate",
+  "params": [
+    {
+      "name": "90°",
+      "type": "checkbox"
+    },
+    {
+      "name": "180°",
+      "type": "checkbox"
+    },
+    {
+      "name": "270°",
+      "type": "checkbox"
+    }
+  ],
+  "function_name": "rotate_img",
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-14T02:18:42.926Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-14T04:55:39.564Z"
+  },
+  "mod_id": "user_id"
+}]

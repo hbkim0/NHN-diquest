@@ -1,0 +1,201 @@
+[{
+  "_id": {
+    "$oid": "6360b7f9dceea6a52047cbaf"
+  },
+  "name": "YOLOv5m + Image Classification",
+  "description": "",
+  "ml_task": 1,
+  "algorithms": [
+    {
+      "name": "Yolov5(medium)",
+      "image_name": "yolov5:latest",
+      "training_params": [
+        {
+          "name": "epoch",
+          "type": "integer",
+          "default": "300"
+        },
+        {
+          "name": "batch_size",
+          "type": "integer",
+          "default": "16"
+        }
+      ],
+      "performance_metrics": [
+        {
+          "name": "precision",
+          "type": "double"
+        },
+        {
+          "name": "recall",
+          "type": "double"
+        },
+        {
+          "name": "mAP_0.5",
+          "type": "double"
+        },
+        {
+          "name": "mAP_0.5:0.95",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "Classifier(resnet50)",
+      "image_name": "classifier_resnet50:latest",
+      "training_params": [
+        {
+          "name": "epoch",
+          "type": "integer",
+          "default": "2"
+        },
+        {
+          "name": "batch_size",
+          "type": "integer",
+          "default": "16"
+        },
+        {}
+      ],
+      "performance_metrics": [
+        {
+          "name": "accuracy",
+          "type": "double"
+        }
+      ]
+    }
+  ],
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-24T06:06:36.630Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-24T06:40:50.688Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "6360b87adceea6a52047cbb0"
+  },
+  "name": "KoELECTRA-Base",
+  "description": "",
+  "ml_task": 0,
+  "algorithms": [
+    {
+      "name": "Koelectra(base)",
+      "image_name": "koelectra_base:latest",
+      "training_params": [
+        {
+          "name": "epoch",
+          "type": "integer",
+          "default": "5"
+        },
+        {
+          "name": "batch_size",
+          "type": "integer",
+          "default": "8"
+        }
+      ],
+      "performance_metrics": [
+        {
+          "name": "precision",
+          "type": "double"
+        },
+        {
+          "name": "recall",
+          "type": "double"
+        },
+        {
+          "name": "f1",
+          "type": "double"
+        }
+      ]
+    }
+  ],
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-24T06:06:36.630Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-24T06:40:50.688Z"
+  },
+  "mod_id": "user_id"
+},{
+  "_id": {
+    "$oid": "4360b7f9dceea6a52047cbaf"
+  },
+  "name": "YOLOv5s + Image Classification",
+  "description": "",
+  "ml_task": 1,
+  "algorithms": [
+    {
+      "name": "Yolov5(small)",
+      "image_name": "yolov5:latest",
+      "training_params": [
+        {
+          "name": "epoch",
+          "type": "integer",
+          "default": "300"
+        },
+        {
+          "name": "batch_size",
+          "type": "integer",
+          "default": "16"
+        }
+      ],
+      "performance_metrics": [
+        {
+          "name": "precision",
+          "type": "double"
+        },
+        {
+          "name": "recall",
+          "type": "double"
+        },
+        {
+          "name": "mAP_0.5",
+          "type": "double"
+        },
+        {
+          "name": "mAP_0.5:0.95",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "Classifier(resnet50)",
+      "image_name": "classifier_resnet50:latest",
+      "training_params": [
+        {
+          "name": "epoch",
+          "type": "integer",
+          "default": "2"
+        },
+        {
+          "name": "batch_size",
+          "type": "integer",
+          "default": "16"
+        }
+      ],
+      "performance_metrics": [
+        {
+          "name": "accuracy",
+          "type": "double"
+        }
+      ]
+    }
+  ],
+  "history": {},
+  "ext": {},
+  "reg_date": {
+    "$date": "2022-10-24T06:06:36.630Z"
+  },
+  "reg_id": "user_id",
+  "mod_date": {
+    "$date": "2022-10-24T06:40:50.688Z"
+  },
+  "mod_id": "user_id"
+}]

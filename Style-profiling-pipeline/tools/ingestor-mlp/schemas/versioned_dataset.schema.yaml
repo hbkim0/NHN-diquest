@@ -1,0 +1,54 @@
+$id: http://ai-dev.diquest.com/versioned_dataset.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: versioned_dataset schema
+type: object
+properties:
+  dataset_id:
+    type: string
+  bundle_ids:
+    type: array
+    items:
+      type: string
+  name:
+    type: string
+  index:
+    type: integer
+    minimum: 0
+  gen_date:
+    type: string
+    description: '파일 생성일'
+    format: date-time
+  split:
+    type: array
+    description: 'train, valid, test 개수'
+    items:
+      type: integer
+    maxItems: 3
+    minItems: 3
+  preprocessing:
+    type: array
+    items:
+      type: object
+      properties:
+        function_id:
+          type: string
+        params:
+          type: object
+  augmentation:
+    type: array
+    items:
+      type: object
+      properties:
+        function_id:
+          type: string
+        params:
+          type: object
+  status:
+    type: integer
+    description: |
+      status
+      - 0: queued
+      - 1: processing
+      - 2: done
+      - 3: failed
+    enum: [0, 1, 2, 3]
