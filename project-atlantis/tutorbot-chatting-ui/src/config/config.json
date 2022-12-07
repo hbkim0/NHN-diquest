@@ -1,0 +1,13 @@
+{
+    "REST_URL": "http://133.186.171.9:8080",
+    "REST_API_PATH": "/restapi",
+    "MBR_REST_API_PATH": "/restapi-mbr",    
+    "PATH": ".",
+    "REPO_ID": "AB",
+    "AGENT_NAME": "AB-AGENT-1",
+    "FAQ_CATEGORY_NAME": "",
+    "LOGIN_USE": true,
+    "USER_ID": "super",
+    "IMAGE_API_URL":"http://133.186.171.9:9980",
+    "TUTORBOT_AUTH_API_URL": "http://133.186.171.9:9950"
+}

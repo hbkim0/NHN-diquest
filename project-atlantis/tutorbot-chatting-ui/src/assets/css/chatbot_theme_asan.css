@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+/* chat theme */
+.chat_wrapper .chat_area.chat_theme_asan {background:#fff;font-size:16px;line-height:1.4em;color:#333;}
+.chat_wrapper .chat_area.chat_theme_asan .chat_bot .bot_profile {background-color:#f1f1f1}
+.chat_wrapper .chat_area.chat_theme_asan .chat_bot .bot_text {background:#f7f7f7}
+.chat_wrapper .chat_area.chat_theme_asan .chat_user .chat_text {background:#666;}
+.chat_wrapper .chat_area.chat_theme_asan .bot_card {background:#f7f7f7;}
+.chat_wrapper .chat_area.chat_theme_asan .bot_text .bot_card {background:#fff;}
+.chat_wrapper .chat_area.chat_theme_asan .bot_card_text {background: #fff;}
+.chat_wrapper .chat_area.chat_theme_asan .out_cont .bot_card_text {background:#f7f7f7}
+
+/* primary 테마 */
+.chat_wrapper .primary_c {color:#55a3a3}
+.chat_wrapper .btn.primary_c {background:#55a3a3;color:#fff;border:none;}
+.chat_wrapper .btn.primary_c:hover, .btn.primary_c:focus, .btn.primary_c:active, .btn.primary_c.checked {background:#3c8585 !important}
+.chat_wrapper .btn.primary_c_bd {background:#fff;color:#55a3a3;border:1px solid #55a3a3;}
+.chat_wrapper .btn.primary_c_bd:hover, .btn.primary_c_bd:focus, .btn.primary_c_bd:active, .btn.primary_c_bd.checked {background:#f4fcfc;}
+
+/* wrapper */
+.chat_wrapper {position:absolute;left:0;right:0;top:0;bottom:0;width:100%;overflow:hidden}
+.chat_wrapper .chat_area {position:absolute;top:40px;left:0;right:0;bottom:130px;overflow:auto;-webkit-overflow-scrolling: touch;overflow-y:auto;overflow-x:hidden;}
+
+/* 기타 테마 */
+.chat_wrapper strong, 
+.chat_wrapper .text_strong {font-family:"NanumGothicBold"}
+
+.chat_wrapper .text_large:not(:.far),
+.chat_wrapper .text_large:not(:.fas),
+.chat_wrapper .text_large:not(:.fa) {font-family:"NanumGothicBold"}

@@ -1,0 +1,29 @@
+$id: http://ai-dev.diquest.com/problems.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: problems schema
+type: array
+items:
+  type: object
+  properties:
+    prob_num:
+      type: string
+    solving_url:
+      type: string
+      description: '문제풀이 이미지 url'
+    similar_url: 
+      type: string
+      description: '유사문제 이미지 url'
+    labels:
+      type: array
+      items:
+        type: object
+        properties:
+          bbox:
+            type: array
+            description: '[left, top, right, bottom]'
+            items:
+              type: number
+            minItems: 4
+            maxItems: 4
+          label:
+            type: string

@@ -1,0 +1,60 @@
+$id: http://ai-dev.diquest.com/page.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: page schema
+type: object
+required: [workbook_id, page_num, ]
+properties:
+  workbook_id:
+    type: string
+    description: 'Cannot be modified after creation'
+  page_num:
+    type: string
+  description:
+    type: string
+  original_url:
+    type: string
+  sample_url:
+    type: string
+  labeled: 
+    type: integer
+    enum: [0, 1]
+  width:
+    type: integer
+    description: '원본 이미지 업로드 시 자동으로 획득'
+    minimum: 1
+  height:
+    type: integer
+    description: '원본 이미지 업로드 시 자동으로 획득'
+    minimum: 1
+  vector:
+    type: array
+    description: '원본 이미지 업로드 시 자동으로 획득'
+    items:
+      type: number
+  problems:
+    type: array
+    items:
+      type: object
+      properties:
+        prob_num:
+          type: string
+        solving_url:
+          type: string
+          description: '문제풀이 이미지 url'
+        similar_url: 
+          type: string
+          description: '유사문제 이미지 url'
+        labels:
+          type: array
+          items:
+            type: object
+            properties:
+              bbox:
+                type: array
+                description: '[left, top, right, bottom]'
+                items:
+                  type: number
+                minItems: 4
+                maxItems: 4
+              label:
+                type: string

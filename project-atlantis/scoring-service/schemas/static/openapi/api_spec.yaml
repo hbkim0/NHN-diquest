@@ -1,0 +1,977 @@
+openapi: 3.0.1
+
+info:
+  title: Scoring Service
+  description: 자동채점 backend
+  version: 0.1.0
+
+servers:
+  - url: http://localhost:9980
+
+tags:
+  - name: Image
+    description: ''
+  - name: Workbook
+    description: ''
+  - name: Page
+    description: ''
+  - name: Problem
+    description: ''
+  - name: Infer
+    description: ''
+  - name: Log
+    description: ''
+
+paths:
+  /images/upload:
+    post:
+      summary: ''
+      description: ''
+      tags:
+        - Image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [images, ]
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [paths, ]
+                properties:
+                  paths:
+                    type: array
+                    description: |
+                      image가 저장된 상대 경로. `GET {BASE_URL}/{path}`
+                    items:
+                      type: string
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /images/{filename}:
+    get:
+      summary: ''
+      description: ''
+      tags:
+        - Image
+      parameters:
+        - name: filename
+          in: path
+          description: filename
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/workbooks:
+    post:
+      summary: ''
+      tags:
+        - Workbook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/WorkbookCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbook'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Workbook
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: name
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: valid
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: applied
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workbook'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/workbooks/{id}:
+    get:
+      summary: ''
+      tags:
+        - Workbook
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbook'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Workbook
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkbookUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbook'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      description: 'Delete the workbook after deleting all the pages it contains.'
+      tags:
+        - Workbook
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/pages:
+    post:
+      summary: ''
+      tags:
+        - Page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageCreateDto'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    get:
+      summary: ''
+      tags:
+        - Page
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: workbook_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: labeled
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/pages/{id}:
+    get:
+      summary: ''
+      tags:
+        - Page
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': 
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    patch:
+      summary: ''
+      tags:
+        - Page
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageUpdateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+    delete:
+      summary: ''
+      tags:
+        - Page
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'   
+  /api/v1/pages/count:
+    get:
+      summary: ''
+      tags:
+        - Page
+      parameters:
+        - name: workbook_id
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: labeled
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+            default: 1
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [filtering, count]
+                properties:
+                  filtering:
+                    type: string
+                  count:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/pages/reindex:
+    post:
+      summary: ''
+      tags:
+        - Page
+      description: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [updated_cnt]
+                properties:
+                  updated_cnt:
+                    type: integer
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/problems/explain:  
+    get:
+      summary: 'Problem Explanation'
+      tags:
+        - Problem
+      parameters:
+        - name: workbook_name
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: page_num
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: prob_num
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [solving_url, ]
+                properties:
+                  solving_url:
+                    type: string
+                    description: '문제풀이 이미지 url'
+                  similar_url:
+                    type: string
+                    description: '유사문제 이미지 url'            
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/infer/dnr:
+    post:
+      summary: 'detection and recognition'
+      tags:
+        - Infer
+      description: 'user_id는 log가 1인 경우, log의 user field에 기록될 user의 식별자'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [input_url, ]
+              properties:
+                input_url:
+                  type: string
+                log:
+                  type: integer
+                  enum: [0, 1]
+                  default: 1
+                user_id:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnRResultDto'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/infer/score:
+    post:
+      summary: ''
+      tags:
+        - Infer
+      description: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [page_id, predictions, ]
+              properties:
+                page_id: 
+                  $ref: '#/components/schemas/ObjectId'
+                predictions:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Prediction'
+                log_id:
+                  $ref: '#/components/schemas/ObjectId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreResultDto'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/logs:
+    get:
+      summary: ''
+      tags:
+        - Log
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SortBy'
+        - name: success
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: workbook_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+        - name: page_id
+          in: query
+          description: ''
+          required: false
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+        - name: user_id
+          in: query
+          description: 'user name'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [offset, limit, sort_by, filtering, total_results, results]
+                properties:
+                  offset:
+                    type: integer
+                  limit:
+                    type: integer
+                  sort_by:
+                    type: string
+                  filtering:
+                    type: string
+                  total_results:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Log'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /api/v1/version:
+    get:
+      summary: ''
+      responses:
+        '200':
+          description: ''
+          content: 
+            application/json:
+              schema:
+                type: object
+                required: [search_model, recognition_model, scroing_service, ]
+                properties:
+                  search_model:
+                    type: string
+                  recognition_model:
+                    type: string
+                  scroing_service:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        default:
+          $ref: '#/components/responses/UnknownError'
+
+components:
+  schemas:
+    Workbook:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description: 
+          type: string
+        image_url:
+          type: string
+        no_pages:
+          type: integer
+          description: '사용자가 해당 문제집 id로 등록한 페이지의 수'
+          minimum: 1
+        valid:
+          type: integer
+          enum: [0, 1]
+        applied:
+          type: integer
+          enum: [0, 1]
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Problem:
+      type: object
+      properties:
+        prob_num:
+          type: string
+        solving_url:
+          type: string
+          description: '문제풀이 이미지 url'
+        similar_url: 
+          type: string
+          description: '유사문제 이미지 url'
+        labels:
+          type: array
+          items:
+            type: object
+            properties:
+              bbox:
+                type: array
+                description: '[left, top, right, bottom]'
+                items:
+                  type: number
+                minItems: 4
+                maxItems: 4
+              label:
+                type: string
+    Page:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        workbook_id:
+          type: string
+          description: 'Cannot be modified after creation'
+        page_num:
+          type: string
+        description:
+          type: string
+        original_url:
+          type: string
+        sample_url:
+          type: string
+        labeled: 
+          type: integer
+          enum: [0, 1]
+        width:
+          type: integer
+          description: '원본 이미지 업로드 시 자동으로 획득'
+          minimum: 1
+        height:
+          type: integer
+          description: '원본 이미지 업로드 시 자동으로 획득'
+          minimum: 1
+        vector:
+          type: array
+          description: '원본 이미지 업로드 시 자동으로 획득'
+          items:
+            type: number
+        problems:
+          type: array
+          items:
+            $ref: '#/components/schemas/Problem'
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    Log:
+      type: object
+      properties:
+        success:
+          type: integer
+          enum: [0, 1]
+        workbook:
+          $ref: '#/components/schemas/Workbook'
+        page:
+          $ref: '#/components/schemas/Page'
+        input_url:
+          type: string
+        boxed_url:
+          type: string
+        scoring:
+          type: array
+          items:
+            type: object
+            required: [prob_num, answers, ]
+            properties:
+              prob_num:
+                type: string
+              labels:
+                type: array
+                description: '정답'
+                items:
+                  type: string
+              answers:
+                type: array
+                description: '인식 결과'
+                items:
+                  type: string
+              custom_answers:
+                type: array
+                description: '사용자가 입력한 답'
+                items:
+                  type: string
+              correct:
+                type: integer
+                enum: [0, 1]
+        user_id:
+          type: string
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+    Prediction:
+      type: object
+      required: [prob_num, answers, ]
+      properties:
+        prob_num:
+          type: string
+        answers:
+          type: array
+          items:
+            type: string
+
+    ObjectId:
+      type: string
+      description: id 
+    ResponseErrorDto:
+      type: object
+      required: [error_code, error_message]
+      properties:
+        error_code:
+          type: integer
+          description: ''
+        error_message:
+          type: string
+          description: ''
+    WorkbookCreateDto:
+      type: object
+      required: [name, ]
+      properties:
+        name:
+          type: string
+        description: 
+          type: string
+    WorkbookUpdateDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description: 
+          type: string
+        image_url:
+          type: string
+        applied:
+          type: integer
+          enum: [0, 1]
+    PageCreateDto:
+      type: object
+      required: [workbook_id, page_num, ]
+      properties:
+        workbook_id:
+          type: string
+        page_num:
+          type: string
+        description:
+          type: string
+    PageUpdateDto:
+      type: object
+      properties:
+        page_num:
+          type: string
+        description:
+          type: string
+        original_url:
+          type: string
+        sample_url:
+          type: string
+        problems:
+          type: array
+          items:
+            $ref: '#/components/schemas/Problem'
+    DnRResultDto:
+      oneOf:
+        - type: object
+          required: [success, workbook, page, input_url, boxed_url, predictions, ]
+          properties:
+            success:
+              type: integer
+              enum: [1]
+            log_id:
+              $ref: '#/components/schemas/ObjectId'
+            workbook:
+              $ref: '#/components/schemas/Workbook'
+            page:
+              $ref: '#/components/schemas/Page'
+            input_url:
+              type: string
+            boxed_url:
+              type: string
+            predictions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Prediction'
+            user_id:
+              type: string
+        - type: object
+          required: [success, input_url, ]
+          additionalProperties: false
+          properties:
+            success:
+              type: integer
+              enum: [0]
+            log_id:
+              $ref: '#/components/schemas/ObjectId'
+            input_url:
+              type: string
+            user_id:
+              type: string
+    ScoreResultDto:
+      type: array
+      items:
+        type: object
+        required: [prob_num, correct, ]
+        properties:
+          prob_num:
+            type: string
+          solving_url:
+            type: string
+          similar_url:
+            type: string
+          correct:
+            type: integer
+            enum: [0, 1]
+
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: offset pagination
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 100
+        default: 20
+    SortBy:
+      name: sort_by
+      in: query
+      description: |
+        sorting<br>
+        - syntax: `{+|-}{filedname}` (e.g., +name)
+          - (`+`): ascending order
+          - (`-`): descending order
+        - for multi-column sorting, comma seperate. (e.g., sort_by=+name,-desc)
+      required: false
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        $ref: '#/components/schemas/ObjectId'
+
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    204NoContent:
+      description: No Content
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    404NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    500InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+
+  headers:
+    Location:
+      description: URI of the new resource
+      schema:
+        type: string
+        format: uri

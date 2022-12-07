@@ -1,0 +1,13 @@
+$id: 
+$schema: http://json-schema.org/draft-07/schema#
+title: workbook schema
+type: objcet
+required: [book_name, total_pages, page_ids]
+properties:
+  book_name:
+    type: string
+  total_pages:
+    type: integer
+  page_ids:
+    type: array
+    

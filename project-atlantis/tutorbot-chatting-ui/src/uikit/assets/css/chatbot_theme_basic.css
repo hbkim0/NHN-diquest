@@ -1,0 +1,145 @@
+@charset "utf-8";
+
+/* chat theme */
+.chat_wrapper {
+  color: #333;
+}
+.chat_wrapper .chat_area {
+  background-color: var(--main-bg-color, #eef7fe) !important;
+} /* 배경 */
+
+.chat_wrapper .chat_area .chat_bot .bot_profile,
+.chat_wrapper .chat_area .chat_bot .bot_text,
+.chat_wrapper .chat_area .bot_card,
+.chat_wrapper .chat_area .out_cont .bot_card_text {
+  background-color: var(--main-ans-color, #ffffff) !important;
+  border: 1px solid var(--main-ans-bord-color, #eef7fe) !important;
+  color: var(--main-ans-font-color, #333) !important;
+} /* 답변 말풍선 및 테두리 */
+.chat_wrapper .chat_area .chat_user .chat_text {
+  background-color: var(--main-qry-color, #2196f3) !important;
+  border: 1px solid var(--main-qry-bord-color, #eef7fe) !important;
+  color: var(--main-qry-font-color, #fff) !important;
+} /* 질문 말풍선 테두리 */
+.chat_wrapper .chat_area .bot_text .bot_card,
+.chat_wrapper .chat_area .bot_card_text {
+  background-color: #f7f7f7 !important;
+}
+
+/* primary 버튼 테마 */
+.chat_wrapper .primary_c {
+  color: var(--main-basic-color, #2196f3) !important;
+} /* 테마색상 */
+
+.chat_wrapper .btn.primary_c,
+.chat_wrapper .form_set.type_button input[type="radio"].primary_c + label,
+.chat_wrapper .form_set.type_button input[type="checkbox"].primary_c + label,
+.chat_wrapper .badge.primary_c {
+  background-color: var(--main-basic-color, #2196f3) !important;
+  color: var(--main-basic-font-color, #ffffff) !important;
+} /* 버튼 : 테마색상 */
+
+.chat_wrapper .btn.primary_c:hover,
+.btn.primary_c:focus,
+.btn.primary_c:active,
+.btn.primary_c.checked,
+.chat_wrapper .form_set.type_button input[type="radio"].primary_c + label:hover,
+.chat_wrapper .form_set.type_button input[type="radio"].primary_c + label:focus,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c
+  + label:active,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c:checked
+  + label,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c
+  + label:hover,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c
+  + label:focus,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c
+  + label:active,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c:checked
+  + label {
+  background-color: var(--main-basic-hover-color, #1565c0) !important;
+} /* 버튼 오버 (테마색상 + 2) */
+
+.chat_wrapper .btn.primary_c_bd,
+.chat_wrapper .form_set.type_button input[type="radio"].primary_c_bd + label,
+.chat_wrapper .form_set.type_button input[type="checkbox"].primary_c_bd + label,
+.chat_wrapper .badge.primary_c_bd {
+  background-color: #ffffff;
+  color: var(--main-basic-color, #2196f3) !important;
+  border: 1px solid var(--main-basic-color, #2196f3) !important;
+} /* 테마 버튼 (테마색상) */
+
+.chat_wrapper .btn.primary_c_bd:hover,
+.btn.primary_c_bd:focus,
+.btn.primary_c_bd:active,
+.btn.primary_c_bd.checked,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c_bd
+  + label:hover,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c_bd
+  + label:focus,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c_bd
+  + label:active,
+.chat_wrapper
+  .form_set.type_button
+  input[type="radio"].primary_c_bd:checked
+  + label,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c_bd
+  + label:hover,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c_bd
+  + label:focus,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c_bd
+  + label:active,
+.chat_wrapper
+  .form_set.type_button
+  input[type="checkbox"].primary_c_bd:checked
+  + label {
+  background-color: var(--main-basic-bd-hover-color, #eef7fe) !important;
+} /* 버튼 오버 (테마색상줄 맨 처음색) */
+
+/* chatbot layout */
+.chat_wrapper .bot_header {
+  background-color: var(--main-head-color, #1565c0) !important;
+  color: var(--main-head-font-color, #ffffff) !important;
+} /* 헤더 */
+.chat_wrapper .bot_header h1 {
+  color: var(--main-head-font-color, #ffffff) !important;
+} /* 헤더 챗봇이름 (헤더 텍스트 컬러) */
+.chat_wrapper .bot_header .head_right .head_cont li.bot_menu a {
+  color: var(--main-head-font-color, #fff) !important;
+} /* 헤더 우측 메뉴 색상  (헤더 백그라운드 색상의 텍스트 컬러) */
+.chat_wrapper .login_wrapper .login_tit,
+.chat_wrapper .send_area .send_form .input_wrap .btn_send {
+  background-color: var(--main-head-color, #1565c0) !important;
+  color: #ffffff;
+} /* 전송 버튼 (헤더색상) */
+.chat_wrapper .send_area .btn_faq.on {
+  color: var(--main-basic-color, #2196f3) !important;
+} /* FAQ (테마색상) */
+.chat_wrapper .contact_area li a > i,
+.chat_wrapper .contact_area li a.on {
+  color: var(--main-head-color, #1565c0) !important;
+}

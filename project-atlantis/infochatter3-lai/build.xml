@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="lai-module-starter" default="build">
+
+    <tstamp>
+        <format property="current.date" pattern="yyyyMMdd_HHmmss"/>
+    </tstamp>
+
+    <property name="profile" value="local"/>
+
+    <property name="build.baseDir" value="${basedir}/build"/>
+    <property name="build.sourceDir" value="${basedir}/src/main/java"/>
+    <property name="build.webappDir" value="${basedir}/src/main/webapp"/>
+    <property name="build.resourcesDir" value="${basedir}/src/main/resources"/>
+
+    <property name="compile.outputDir" value="${build.baseDir}/classes"/>
+    <property name="compile.javaXms" value="32m"/>
+    <property name="compile.javaXmx" value="128m"/>
+
+    <property name="package.finalName" value="${ant.project.name}"/>
+    <property name="package.outputDir" value="${build.baseDir}/${package.finalName}"/>
+    <property name="package.outputFile" value="${package.outputDir}.war"/>
+
+    <target name="info">
+        <echo message="OS info : ${os.name} ${os.version}"/>
+        <echo message="Java home : ${java.home}"/>
+        <echo message="Java vendor : ${java.vendor}"/>
+        <echo message="Java version : ${java.version}"/>
+        <echo message="Ant home : ${ant.home}"/>
+        <echo message="Ant project name : ${ant.project.name}"/>
+        <echo message="Ant Java version : ${ant.java.version}"/>
+        <echo message="Ant base dir : ${basedir}"/>
+    </target>
+
+    <target name="build" depends="clean, package"/>
+
+    <target name="clean">
+        <delete dir="${build.baseDir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${compile.outputDir}"/>
+
+        <javac srcdir="${build.sourceDir}" destdir="${compile.outputDir}"
+               nowarn="true" debug="true" deprecation="true"
+               encoding="UTF-8" source="1.7" target="1.7" includeantruntime="false"
+               fork="true" memoryinitialsize="${compile.javaXms}" memorymaximumsize="${compile.javaXmx}">
+            <include name="**/*.java"/>
+            <classpath>
+                <fileset dir="${build.webappDir}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="package" depends="compile">
+        <mkdir dir="${package.outputDir}/META-INF"/>
+        <mkdir dir="${package.outputDir}/WEB-INF"/>
+
+        <copy todir="${package.outputDir}" verbose="true" overwrite="true">
+            <fileset dir="${build.webappDir}"/>
+        </copy>
+
+        <copy todir="${package.outputDir}/WEB-INF/classes" verbose="true" overwrite="true">
+            <fileset dir="${compile.outputDir}"/>
+            <fileset dir="${build.resourcesDir}"/>
+        </copy>
+
+        <antcall target="package-resources-profile"/>
+
+        <war destfile="${package.outputFile}" needxmlfile="false" encoding="UTF-8">
+            <fileset dir="${package.outputDir}"/>
+        </war>
+    </target>
+
+    <target name="package-resources-profile" if="profile">
+        <copy todir="${package.outputDir}/WEB-INF/classes" verbose="true" overwrite="true" failonerror="false">
+            <fileset dir="${build.resourcesDir}-${profile}"/>
+        </copy>
+    </target>
+
+</project>

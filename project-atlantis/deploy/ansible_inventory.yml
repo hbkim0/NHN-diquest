@@ -1,0 +1,11 @@
+all:
+  children:
+    deploy:
+      hosts:
+        133.186.171.9
+    test:
+      hosts:
+        133.186.171.15
+  vars:
+    ansible_user: diquest
+    ansible_password: ek2znptm2

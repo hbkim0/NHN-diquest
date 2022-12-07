@@ -1,0 +1,249 @@
+openapi: 3.0.1
+
+info:
+  title: Tutorbot Auth Service
+  description: 튜터봇 인증 서비스
+  version: 0.1.0
+
+servers:
+  - url: http://localhost:9950/api/v1
+
+tags:
+  - name: Student
+    description: ''
+  - name: User
+
+paths:
+  /students/{id}:
+    get:
+      security:
+        - sessionid: []
+      summary: ''
+      description: ''
+      tags:
+        - Student
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/Auth403Forbidden'
+                  - $ref: '#/components/schemas/ResponseErrorDto'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        default:
+          $ref: '#/components/responses/UnknownError'
+  /users/login/:
+    post:
+      summary: ''
+      description: ''
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [key]
+                properties:
+                  key:
+                    type: string
+                    description: Token key
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      non_field_errors:
+                        type: array
+                        items:
+                          type: string
+                  - type: object
+                    properties:
+                      password:
+                        type: array
+                        items:
+                          type: string
+        '403':
+          $ref: '#/components/responses/Auth403Forbidden'
+  /users/logout/:
+    post:
+      summary: ''
+      description: ''
+      tags:
+        - User
+      responses:
+        '200':
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthDetailDto'
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+        '403':
+          $ref: '#/components/responses/Auth403Forbidden'
+
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+          description: '학생 이름'
+        user_id:
+          type: string
+          description: '학생 ID'
+        workbook_id:
+          type: string
+          description: '교재 ID'
+        correct_rate:
+          type: integer
+          description: '정답률'
+          minimum: 0
+          maximum: 100
+        correct_count:
+          type: integer
+          description: '오늘 맞춘 문항수'
+          minimum: 0
+        correct_count_all:
+          type: integer
+          description: '전체 맞춘 문항수'
+          minimum: 0
+        page_done:
+          type: integer
+          description: '전체 푼 쪽수'
+          minimum: 0
+        pages_today:
+          type: array
+          description: '오늘 숙제 쪽수'
+          items:
+            type: integer
+            minimum: 0
+        pages_tomorrow:
+          type: array
+          description: '내일 숙제 쪽수'
+          items:
+            type: integer
+            minimum: 0
+        person_type:
+          type: string
+          description: '학습자 유형'
+          enum: ['열공형', '기복형', '흐지부지형', '벼락치기형', '태만형']
+        history:
+          type: object
+          description: '표준필드 : 로그 데이터'
+        ext:
+          type: object
+          description: '표준필드 : 확장 데이터'
+        reg_date:
+          type: string
+          description: '표준필드 : 등록일'
+          format: date-time
+        reg_id:
+          type: string
+          description: '표준필드 : 등록ID'
+        mod_date:
+          type: string
+          description: '표준필드 : 수정일'
+          format: date-time
+        mod_id:
+          type: string
+          description: '표준필드 : 수정ID'
+    ObjectId:
+      type: string
+      description: id   
+    ResponseErrorDto:
+      type: object
+      required: [error_code, error_message]
+      properties:
+        error_code:
+          type: integer
+          description: ''
+        error_message:
+          type: string
+          description: ''
+    AuthDetailDto:
+      type: object
+      properties:
+        detail:
+          type: string
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        $ref: '#/components/schemas/ObjectId'
+
+  securitySchemes:
+    sessionid:
+      type: apiKey
+      in: cookie
+      name: sessionid
+
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'
+    Auth403Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthDetailDto'
+    404NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorDto'

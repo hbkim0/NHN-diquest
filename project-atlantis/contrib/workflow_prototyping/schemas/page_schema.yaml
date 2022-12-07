@@ -1,0 +1,34 @@
+$id: 
+$schema: http://json-schema.org/draft-07/schema#
+title: page schema
+type: objcet
+required: [book_name, page_num, page_width, page_height, page_vector, probs]
+properties:
+  book_name:
+    type: string
+  page_num:
+    type: integer
+  page_width:
+    type: integer
+  page_height:
+    type: integer
+  page_vector:
+    type: array
+  probs:
+    type: array
+    items:
+      type: object
+      required: [prob_num, answers]
+      properties:
+        prob_num:
+          type: integer
+        answers:
+          type: array
+          required: [answer_id, bbox, label]
+          items:
+            answer_id:
+              type: integer
+            bbox:
+              type: array
+            label:
+              type: integer

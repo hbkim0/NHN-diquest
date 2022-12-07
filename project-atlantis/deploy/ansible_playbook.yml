@@ -1,0 +1,98 @@
+- name: deploy project atlantis
+  hosts: deploy
+  environment:
+    JAVA_HOME: "{{ ansible_env.HOME }}/jdk8u222-b10"
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
+  vars:
+    target: "{{ ansible_env.HOME }}/project-atlantis"
+  tasks:
+  - name: git clone or pull
+    git:
+      dest: "{{ target }}"
+      force: yes
+      repo: git@github.com:ai-dq/project-atlantis.git
+      update: yes
+      version: production
+  - name: maven package
+    shell:
+      chdir: "{{ target }}/infochatter3-lai/"
+      cmd: "mvn package"
+  - name: war file copy
+    shell:
+      cmd: "cp {{ target }}/infochatter3-lai/target/lai-module-starter-1.0.0.war {{ ansible_env.HOME }}/tomcat8/webapps/lai.war"
+    ### scoring-admin-ui ###
+  - name: npm install scoring-admin-ui
+    shell: npm install
+    args:
+      chdir: "{{ target }}/scoring-admin-ui/"
+  - name: npm build scoring-admin-ui
+    shell: npm run build
+    args:
+      chdir: "{{ target }}/scoring-admin-ui/"
+  - name: docker build scoring-admin-ui
+    community.docker.docker_image:
+      name: scoring-admin-ui
+      build:
+        path: "{{ target }}/scoring-admin-ui/"
+      source: build
+      force_source: true
+  - name: docker run scoring-admin-ui
+    community.docker.docker_container:
+      name: scoring-admin-ui
+      image: scoring-admin-ui
+      restart: true
+      ports:
+      - "8081:80"
+    ## tutorbot-chatting-ui ###
+  - name: npm install tutorbot-chatting-ui
+    shell: npm install
+    args:
+      chdir: "{{ target }}/tutorbot-chatting-ui/"
+  - name: npm build tutorbot-chatting-ui
+    shell: npm run build
+    args:
+      chdir: "{{ target }}/tutorbot-chatting-ui/"
+  - name: docker build tutorbot-chatting-ui
+    community.docker.docker_image:
+      name: tutorbot-chatting-ui
+      build:
+        path: "{{ target }}/tutorbot-chatting-ui/"
+      source: build
+      force_source: true
+  - name: docker run tutorbot-chatting-ui
+    community.docker.docker_container:
+      name: tutorbot-chatting-ui
+      image: tutorbot-chatting-ui
+      restart: true
+      ports:
+      - "80:80"
+    ### scoring-service ###
+  - name: docker build scoring-service
+    community.docker.docker_image:
+      name: scoring-service
+      build:
+        path: "{{ target }}/scoring-service/"
+      source: build
+      force_source: true
+  - name: docker run scoring-service
+    community.docker.docker_container:
+      name: scoring-service
+      image: scoring-service
+      restart: true
+      ports:
+      - "9980:80"
+    ### tutorbot-auth-service ###
+  - name: docker build tutorbot-auth-service
+    community.docker.docker_image:
+      name: tutorbot-auth-service
+      build:
+        path: "{{ target }}/tutorbot-auth-service/"
+      source: build
+      force_source: true
+  - name: docker run tutorbot-auth-service
+    community.docker.docker_container:
+      name: tutorbot-auth-service
+      image: tutorbot-auth-service
+      restart: true
+      ports:
+      - "9950:80"

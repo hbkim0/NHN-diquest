@@ -1,0 +1,54 @@
+$id: http://ai-dev.diquest.com/log.schema.yaml
+$schema: http://json-schema.org/draft-07/schema#
+title: log schema
+type: object
+required: [success, user, input_url, ]
+properties:
+success:
+  type: integer
+  enum: [0, 1]
+workbook:
+  type: object
+  description: 'workbook.schema.yaml 참조'
+page:
+  type: object
+  description: 'page.schema.yaml 참조'
+input_url:
+  type: string
+boxed_url:
+  type: string
+scoring:
+  type: array
+  items:
+    type: object
+    required: [prob_num, answers, ]
+    properties:
+      prob_num:
+        type: string
+      labels:
+        type: array
+        description: '정답'
+        items:
+          type: string
+      answers:
+        type: array
+        description: '인식 결과'
+        items:
+          type: string
+      custom_answers:
+        type: array
+        description: '사용자가 입력한 답'
+        items:
+          type: string
+      correct:
+        type: integer
+        enum: [0, 1]
+user_id:
+  type: string
+reg_date:
+  type: string
+  description: '표준필드 : 등록일'
+  format: date-time
+reg_id:
+  type: string
+  description: '표준필드 : 등록ID'
