@@ -1,4 +1,5 @@
 ## format
+'''
 print('{} {}'.format('one','two'))
 print('{} {}'.format(123, 450))
 print('{1} {0}'.format('one','two'))
@@ -7,6 +8,7 @@ print('{:10.5}'.format('pythonstudy')) # 10자리의 자릿수 중에서 5개만
 tuple = (1,2,3)
 set = {1,2,3} # or 1,2,3
 dict = {"123":123}
+'''
 
 ## naming
 '''
