@@ -58,6 +58,52 @@ b = set([1,2,3]) or b = {1,2,3}
 c = tuple(b) or c = list(b) # 튜플이나 리스트로 전환 가능
 '''
 
+# 함수
+'''
+def function_name(parameter):
+    code
 
+def func_first(w):
+    return w
+g = func_first(1)
 
+def func_second(w,g,k):
+    return (w,g,k) # tuple
+    return [w,g,k] # list
+w,g,k = func_second(1,2,3)
+
+#중요 : *args, **kwargs
+*args(unpacking)
+def args_func(*args) # 매개변수 명 자유
+    for i, v in enumerate(args):
+        print('Result :{}'.format(i), v)
+args_func('TEST0','TEST1','TEST2') -> TEST, TEST1, TEST2
+
+**kwargs(unpacking)
+def kwargs_func(**kwargs):
+    for v in kwargs.keys():
+        print("{}".format(v), kwargs[v])
+kwargs_func(name1='Lee',name2='Kim') -> name1 Lee, name2 Kim
+
+혼합
+def example(args_1, args_2, *args, **kwargs):
+    print(args_1, args_2, args, kwargs)
+example(10,20,'Lee','Kim', 'Park', age1=20, age2=30, age3=40)
+-> 10 20 ('Lee','Kim', 'Park')  {age1=20, age2=30, age3=40}
+
+람다 : 메모리 절약, 가독성 향상, 코드 간결
+def mul_func(x, y):
+    return x*y
+a = lambda x,y: x*y
+a = mul_func(x,y)
+print(a(50,50))
+'''
+
+# 입력
+'''
+name = input("Enter Your Name : ")
+print(name)
+
+# cmd에서 'python test.py' 입력하면 됨
+'''
 
